@@ -28,7 +28,7 @@ test.cb('getUsers gets all users', function (t) {
 test.cb('postUser saves a user', (t) => {
   request(app)
     .post('/users')
-    .send({})
+    .send({name: 'ada'})
     // .expect('Content-Type', /json/)
     .expect(201)
     .end((err, res) => {
@@ -37,6 +37,7 @@ test.cb('postUser saves a user', (t) => {
         .select()
         .then((result) => {
           t.is(result.length, 27)
+          t.is(result[26].name, 'ada')
           t.end()
         })
     })
