@@ -25,3 +25,19 @@ test.cb('getUsers gets all users', function (t) {
     })
 })
 
+test.cb('postUser saves a user', (t) => {
+  request(app)
+    .post('/users')
+    .send({})
+    // .expect('Content-Type', /json/)
+    .expect(201)
+    .end((err, res) => {
+      if (err) throw err
+      return t.context.db('users')
+        .select()
+        .then((result) => {
+          t.is(result.length, 27)
+          t.end()
+        })
+    })
+})
